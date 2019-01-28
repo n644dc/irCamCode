@@ -15,12 +15,12 @@
 case "$1" in
   start)
     echo "STARTING CAMERA LISTENER"
-	mount -o uid=pi,gid=pi /dev/sda1 /mnt/usb
-    /usr/local/bin/cameraListener.py &
+	sudo mount -o uid=pi,gid=pi /dev/sda1 /mnt/usb
+    sudo /usr/local/bin/cameraListener.py &
     ;;
   stop)
     echo "STOPPING CAMERA LISTENER"
-    pkill -f /usr/local/bin/cameraListener.py
+    sudo pkill -f /usr/local/bin/cameraListener.py
     ;;
   *)
     echo "Usage: /etc/init.d/listenForCamera.sh {start|stop}"
