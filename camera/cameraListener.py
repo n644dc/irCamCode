@@ -2,6 +2,7 @@
 from subprocess import Popen, PIPE
 import RPi.GPIO as GPIO
 from threading import Thread
+import os
 import time
 import CameraRunnerThread
 
@@ -19,13 +20,14 @@ def turnCameraOn():
 def turnCameraOff():
   camera.join()
   fileName = camera.fileName
-  print "converting to MP4 " + fileName
-  cmd = "MP4Box -add " + fileName + ".h264 " + fileName + ".mp4"
+  camPath = os.path.join(camera.fileDir, camera.fileName)
+  print "converting to MP4 " + camPath
+  cmd = "MP4Box -add " + camPath + ".h264 " + camPath + ".mp4"
   out, err = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE).communicate()
   print out + " __--__ Error: " + err
   
   if len(err.strip()) < 4:
-    cmd = "rm *.h264"
+    cmd = "sudo rm -f " + camera.fileDir + "*.h264"
     out, err = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE).communicate()
     print out + " __--__ Error: " + err
   print "Conversion Completed, Video Saved."
@@ -50,7 +52,7 @@ def changeCameraState(camState):
     
 try:
   while True:
-    print "Check Switch"
+    # print "Check Switch"
     cameraRunning = getCameraState()
     if cameraRunning == cameraOn:
       continue

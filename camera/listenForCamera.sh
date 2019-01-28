@@ -15,6 +15,7 @@
 case "$1" in
   start)
     echo "STARTING CAMERA LISTENER"
+	mount -o uid=pi,gid=pi /dev/sda1 /mnt/usb
     /usr/local/bin/cameraListener.py &
     ;;
   stop)
