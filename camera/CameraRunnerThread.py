@@ -18,7 +18,7 @@ class CameraRunner(threading.Thread):
     def run(self):
       self.fileName = "feed_" + time.strftime("%a_%d_%b_%Y_%I.%M.%S")
       camPath = os.path.join(self.fileDir, self.fileName)
-      self.camera.start_recording(camPath + ".h264", quality=20, bitrate=10000) #750000
+      self.camera.start_recording(camPath + ".h264", quality=15, bitrate=100000) #750 000
       time.sleep(2)
       print "We're rolling!"
       self.camera.wait_recording(8 * 60 * 60)

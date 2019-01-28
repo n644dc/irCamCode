@@ -25,11 +25,7 @@ def turnCameraOff():
   cmd = "MP4Box -add " + camPath + ".h264 " + camPath + ".mp4"
   out, err = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE).communicate()
   print out + " __--__ Error: " + err
-  
-  if len(err.strip()) < 4:
-    cmd = "sudo rm -f " + camera.fileDir + "*.h264"
-    out, err = Popen(cmd, shell=True, stdout=PIPE, stderr=PIPE).communicate()
-    print out + " __--__ Error: " + err
+  os.remove(camPath + ".h264")
   print "Conversion Completed, Video Saved."
 
 def getCameraState():
